@@ -1,0 +1,233 @@
+/* styles.css */
+
+/* Import Chomsky and Raleway fonts */
+@font-face {
+  font-family: 'Chomsky';
+  src: url('fonts/chomsky.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('fonts/raleway.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Yatraone';
+  src: url('fonts/yatraone.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Greatvibes';
+  src: url('fonts/greatvibes.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Shocardcaps';
+  src: url('fonts/shocardcaps.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ricksamerican';
+  src: url('fonts/ricksamerican.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Berlin';
+  src: url('fonts/berlin.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Henrididot';
+  src: url('fonts/henrididot.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Billajenka';
+  src: url('fonts/billajenka.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Antiquebookcover';
+  src: url('fonts/Antiquebookcover.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ebgaramond';
+  src: url('fonts/Ebgaramond.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Hillside';
+  src: url('fonts/Hillside.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* General body styling */
+body {
+  font-family: 'Raleway', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff; /* Light grey background for contrast */
+  color: #000000; /* Black text for readability */
+}
+
+/* Header styling */
+.header-container {
+  background-color: #FFFFFF; /* White background */
+  padding: 2rem 0;
+  text-align: center; /* Centre the header */
+  border-bottom: 2px solid #ddd;
+  display: flex;
+  align-items: left;
+  justify-content: center;
+}
+
+.header-logo {
+  margin-right: 1rem; /* Space between logo and title */
+}
+.header-logo img {
+  width: 400px; /* Adjust the width of the logo */
+  height: 400px; /* Maintain aspect ratio */
+  object-fit: contain;
+}
+
+
+.header-title {
+  font-family: 'Chomsky', serif;
+  font-size: 2rem; /* Font size */
+  font-weight: 400; /* Less bold */
+  color: #000;
+  margin: 0;
+}
+
+.header-subtitle, .header-date {
+  font-size: 1.5rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+/* Navbar styling */
+.navbar {
+  background-color: #FFFFFF;
+  color: #000;
+  border: none; /* Remove the bottom border */
+  padding: 1rem 1rem;
+  display: flex;
+  justify-content: center; /* Centre the navbar */
+  align-items: left;
+}
+
+.navbar-brand-container {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+}
+
+.navbar-brand-logo .navbar-logo {
+  width: 100px; /* Adjust the width of the logo */
+  height: 100px; /* Maintain aspect ratio */
+  object-fit: contain;
+  margin-right: 2px; /* Space between logo and title */
+  margin-left: 10px;
+}
+
+.navbar-brand .navbar-title {
+  font-family: 'Antiquebookcover', serif; /* Apply Chomsky font */
+  font-size: 5rem; /* Font size */
+  font-weight: 600; /* Less bold */
+  color: #000;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-nav .nav-link {
+  font-family: 'Antiquebookcover', serif; /* Apply Chomsky font */
+  font-size: 1.5rem;
+  color: #000;
+  margin: 0 1rem; /* Add spacing between nav links */
+}
+
+.navbar-nav .nav-link:hover {
+  color: red;
+}
+
+/* Footer styling */
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+footer a {
+  color: white;
+  margin: 0 10px;
+}
+
+footer a:hover {
+  color: #d1d1d1;
+}
+
+/* Blog post styling */
+.listing-title, .listing-subtitle {
+  font-family: 'Antiquebookcover', sans-serif;
+  font-size: 1.5rem;
+  color: #000000;
+  font-weight: 400; /* Less bold */
+}
+
+.listing-title:hover {
+  color: red;
+}
+
+.listing-description {
+  font-family: 'Raleway', sans-serif;
+  color: #000000;
+}
+
+.listing-date, .listing-author, .listing-categories, .metadata {
+  font-family: 'Antiquebookcover', sans-serif;
+  font-size: 1rem;
+  color: #000000;
+}
+
+/* Category tags styling */
+.listing-categories .category {
+  display: inline-block;
+  background-color: #4A90E2;
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.3rem;
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
