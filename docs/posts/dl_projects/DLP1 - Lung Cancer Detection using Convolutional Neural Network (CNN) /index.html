@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.554">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ravi Shankar">
+<meta name="dcterms.date" content="2024-05-15">
+
+<title>Data Down To Earth - DLP1 - Lung Cancer Detection using Convolutional Neural Network (CNN)</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../logo_2.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script type="application/json" class="js-hypothesis-config">
+{
+  "theme": "clean",
+  "openSidebar": false
+}
+</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+<meta property="og:title" content="Data Down To Earth - DLP1 - Lung Cancer Detection using Convolutional Neural Network (CNN)">
+<meta property="og:description" content="">
+<meta property="og:image" content="DLP1.jpg">
+<meta property="og:site_name" content="Data Down To Earth">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../../logo_2.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Data Down To Earth</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-projects" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Projects</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-projects">    
+        <li>
+    <a class="dropdown-item" href="../../../de_projects.html">
+ <span class="dropdown-text">Data Engineering Projects</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../ds_projects.html">
+ <span class="dropdown-text">Data Science Projects</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../ml_projects.html">
+ <span class="dropdown-text">Machine Learning Projects</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../dl_projects.html">
+ <span class="dropdown-text">Deep Learning Projects</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-tutorials" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Tutorials</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-tutorials">    
+        <li>
+    <a class="dropdown-item" href="../../../de_tutorials.html">
+ <span class="dropdown-text">Data Engineering Tutorials</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../ds_tutorials.html">
+ <span class="dropdown-text">Data Science Tutorials</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../ml_tutorials.html">
+ <span class="dropdown-text">Machine Learning Tutorials</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../dl_tutorials.html">
+ <span class="dropdown-text">Deep Learning Tutorials</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/iamrsps"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/iamravishankar/"> <i class="bi bi-linkedin" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">DLP1 - Lung Cancer Detection using Convolutional Neural Network (CNN)</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">deep learning</div>
+                <div class="quarto-category">computer vision</div>
+                <div class="quarto-category">healthcare</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ravi Shankar </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 15, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>This is a post with code</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the reticulate package</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reticulate)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>wd <span class="ot">&lt;-</span> <span class="fu">getwd</span>()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(wd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> PIL <span class="im">import</span> Image</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> glob <span class="im">import</span> glob</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> metrics</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cv2</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> gc</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow <span class="im">import</span> keras</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras <span class="im">import</span> layers</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="importing-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="importing-dataset">Importing Dataset</h2>
+<p>The dataset which we will use here has been taken from -https://www.kaggle.com/datasets/andrewmvd/lung-and-colon-cancer-histopathological-images. &nbsp;This dataset includes 5000 images for three classes of lung conditions:</p>
+<ul>
+<li><p>Normal Class</p></li>
+<li><p>Lung Adenocarcinomas</p></li>
+<li><p>Lung Squamous Cell Carcinomas</p></li>
+</ul>
+<p>These images for each class have been developed from 250 images by performing&nbsp;<a href="https://www.geeksforgeeks.org/python-data-augmentation/"><strong>Data Augmentation</strong></a>&nbsp;on them. That is why we won’t be using Data Augmentation further on these images.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the path to the dataset and list the classes</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> os.path.expanduser(<span class="st">'~/Desktop/blog/DDTE/data/DLP1/lung_image_sets'</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>classes <span class="op">=</span> os.listdir(path)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Classes found:"</span>, classes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Classes found: ['lung_aca', 'lung_n', 'lung_scc']</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cat <span class="kw">in</span> classes:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    image_dir <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>path<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>cat<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    images <span class="op">=</span> os.listdir(image_dir)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    fig.suptitle(<span class="ss">f'Images for </span><span class="sc">{</span>cat<span class="sc">}</span><span class="ss"> category'</span>, fontsize<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        k <span class="op">=</span> np.random.randint(<span class="dv">0</span>, <span class="bu">len</span>(images))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        img <span class="op">=</span> np.array(Image.<span class="bu">open</span>(<span class="ss">f'</span><span class="sc">{</span>path<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>cat<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>images[k]<span class="sc">}</span><span class="ss">'</span>))</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>        ax[i].imshow(img)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        ax[i].axis(<span class="st">'off'</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Text(0.5, 0.98, 'Images for lung_aca category')
+&lt;matplotlib.image.AxesImage object at 0x311d35e20&gt;
+(-0.5, 767.5, 767.5, -0.5)
+&lt;matplotlib.image.AxesImage object at 0x32b153d10&gt;
+(-0.5, 767.5, 767.5, -0.5)
+&lt;matplotlib.image.AxesImage object at 0x328e4efc0&gt;
+(-0.5, 767.5, 767.5, -0.5)
+Text(0.5, 0.98, 'Images for lung_n category')
+&lt;matplotlib.image.AxesImage object at 0x32b1cbd40&gt;
+(-0.5, 767.5, 767.5, -0.5)
+&lt;matplotlib.image.AxesImage object at 0x32b19e660&gt;
+(-0.5, 767.5, 767.5, -0.5)
+&lt;matplotlib.image.AxesImage object at 0x32b19fe60&gt;
+(-0.5, 767.5, 767.5, -0.5)
+Text(0.5, 0.98, 'Images for lung_scc category')
+&lt;matplotlib.image.AxesImage object at 0x311d48050&gt;
+(-0.5, 767.5, 767.5, -0.5)
+&lt;matplotlib.image.AxesImage object at 0x32b19f020&gt;
+(-0.5, 767.5, 767.5, -0.5)
+&lt;matplotlib.image.AxesImage object at 0x32b464860&gt;
+(-0.5, 767.5, 767.5, -0.5)</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="1440"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="1440"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="1440"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>IMG_SIZE <span class="op">=</span> <span class="dv">256</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>SPLIT <span class="op">=</span> <span class="fl">0.2</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>EPOCHS <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>BATCH_SIZE <span class="op">=</span> <span class="dv">64</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> []</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> []</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, cat <span class="kw">in</span> <span class="bu">enumerate</span>(classes):</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  images <span class="op">=</span> glob(<span class="ss">f'</span><span class="sc">{</span>path<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>cat<span class="sc">}</span><span class="ss">/*.jpeg'</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> image <span class="kw">in</span> images:</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    img <span class="op">=</span> cv2.imread(image)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    X.append(cv2.resize(img, (IMG_SIZE, IMG_SIZE)))</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    Y.append(i)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.asarray(X)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>one_hot_encoded_Y <span class="op">=</span> pd.get_dummies(Y).values</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>X_train, X_val, Y_train, Y_val <span class="op">=</span> train_test_split(X, one_hot_encoded_Y,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                                                  test_size <span class="op">=</span> SPLIT,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                                                  random_state <span class="op">=</span> <span class="dv">2022</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X_train.shape, X_val.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(12000, 256, 256, 3) (3000, 256, 256, 3)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> keras.models.Sequential([</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    layers.Conv2D(filters<span class="op">=</span><span class="dv">32</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                  kernel_size<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                  activation<span class="op">=</span><span class="st">'relu'</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                  input_shape<span class="op">=</span>(IMG_SIZE,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                               IMG_SIZE,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                               <span class="dv">3</span>),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                  padding<span class="op">=</span><span class="st">'same'</span>),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    layers.MaxPooling2D(<span class="dv">2</span>, <span class="dv">2</span>),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    layers.Conv2D(filters<span class="op">=</span><span class="dv">64</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>                  kernel_size<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">3</span>),</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                  activation<span class="op">=</span><span class="st">'relu'</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                  padding<span class="op">=</span><span class="st">'same'</span>),</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    layers.MaxPooling2D(<span class="dv">2</span>, <span class="dv">2</span>),</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    layers.Conv2D(filters<span class="op">=</span><span class="dv">128</span>,</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>                  kernel_size<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">3</span>),</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>                  activation<span class="op">=</span><span class="st">'relu'</span>,</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>                  padding<span class="op">=</span><span class="st">'same'</span>),</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    layers.MaxPooling2D(<span class="dv">2</span>, <span class="dv">2</span>),</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    layers.Flatten(),</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    layers.Dense(<span class="dv">256</span>, activation<span class="op">=</span><span class="st">'relu'</span>),</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    layers.BatchNormalization(),</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    layers.Dense(<span class="dv">128</span>, activation<span class="op">=</span><span class="st">'relu'</span>),</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    layers.Dropout(<span class="fl">0.3</span>),</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    layers.BatchNormalization(),</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    layers.Dense(<span class="dv">3</span>, activation<span class="op">=</span><span class="st">'softmax'</span>)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model.summary()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model: "sequential"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ conv2d (Conv2D)                 │ (None, 256, 256, 32)   │         2,432 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d (MaxPooling2D)    │ (None, 128, 128, 32)   │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_1 (Conv2D)               │ (None, 128, 128, 64)   │        18,496 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_1 (MaxPooling2D)  │ (None, 64, 64, 64)     │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ conv2d_2 (Conv2D)               │ (None, 64, 64, 128)    │        73,856 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ max_pooling2d_2 (MaxPooling2D)  │ (None, 32, 32, 128)    │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ flatten (Flatten)               │ (None, 131072)         │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense (Dense)                   │ (None, 256)            │    33,554,688 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization             │ (None, 256)            │         1,024 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_1 (Dense)                 │ (None, 128)            │        32,896 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dropout (Dropout)               │ (None, 128)            │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ batch_normalization_1           │ (None, 128)            │           512 │
+│ (BatchNormalization)            │                        │               │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ dense_2 (Dense)                 │ (None, 3)              │           387 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 33,684,291 (128.50 MB)
+ Trainable params: 33,683,523 (128.49 MB)
+ Non-trainable params: 768 (3.00 KB)</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>keras.utils.plot_model(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    model,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    show_shapes <span class="op">=</span> <span class="va">True</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    show_dtype <span class="op">=</span> <span class="va">True</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    show_layer_activations <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>model.<span class="bu">compile</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    optimizer <span class="op">=</span> <span class="st">'adam'</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    loss <span class="op">=</span> <span class="st">'categorical_crossentropy'</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    metrics <span class="op">=</span> [<span class="st">'accuracy'</span>]</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> keras.callbacks <span class="im">import</span> EarlyStopping, ReduceLROnPlateau</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> myCallback(tf.keras.callbacks.Callback):</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> on_epoch_end(<span class="va">self</span>, epoch, logs<span class="op">=</span>{}):</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> logs.get(<span class="st">'val_accuracy'</span>) <span class="op">&gt;</span> <span class="fl">0.90</span>:</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st"> Validation accuracy has reached upto </span><span class="ch">\</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="st">                      90</span><span class="sc">% s</span><span class="st">o, stopping further training.'</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.model.stop_training <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>es <span class="op">=</span> EarlyStopping(patience<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>                   monitor<span class="op">=</span><span class="st">'val_accuracy'</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>                   restore_best_weights<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>lr <span class="op">=</span> ReduceLROnPlateau(monitor<span class="op">=</span><span class="st">'val_loss'</span>,</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>                       patience<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>                       factor<span class="op">=</span><span class="fl">0.5</span>,</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>                       verbose<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>history <span class="op">=</span> model.fit(X_train, Y_train,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                    validation_data <span class="op">=</span> (X_val, Y_val),</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                    batch_size <span class="op">=</span> BATCH_SIZE,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                    epochs <span class="op">=</span> EPOCHS,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                    verbose <span class="op">=</span> <span class="dv">1</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                    callbacks <span class="op">=</span> [es, lr, myCallback()])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Epoch 1/2
+
+[1m  1/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m10:54[0m 3s/step - accuracy: 0.4219 - loss: 1.4797
+[1m  2/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m5:31[0m 2s/step - accuracy: 0.4844 - loss: 1.3451 
+[1m  3/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m5:17[0m 2s/step - accuracy: 0.5243 - loss: 1.2268
+[1m  4/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m5:18[0m 2s/step - accuracy: 0.5544 - loss: 1.1356
+[1m  5/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m5:15[0m 2s/step - accuracy: 0.5754 - loss: 1.0809
+[1m  6/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m5:17[0m 2s/step - accuracy: 0.5919 - loss: 1.0343
+[1m  7/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m5:35[0m 2s/step - accuracy: 0.6046 - loss: 0.9978
+[1m  8/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m5:41[0m 2s/step - accuracy: 0.6152 - loss: 0.9657
+[1m  9/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m5:32[0m 2s/step - accuracy: 0.6240 - loss: 0.9379
+[1m 10/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:29[0m 2s/step - accuracy: 0.6321 - loss: 0.9136
+[1m 11/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:27[0m 2s/step - accuracy: 0.6390 - loss: 0.8923
+[1m 12/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:25[0m 2s/step - accuracy: 0.6454 - loss: 0.8740
+[1m 13/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:24[0m 2s/step - accuracy: 0.6513 - loss: 0.8575
+[1m 14/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:21[0m 2s/step - accuracy: 0.6567 - loss: 0.8428
+[1m 15/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:17[0m 2s/step - accuracy: 0.6616 - loss: 0.8295
+[1m 16/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:15[0m 2s/step - accuracy: 0.6661 - loss: 0.8177
+[1m 17/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:14[0m 2s/step - accuracy: 0.6701 - loss: 0.8068
+[1m 18/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:11[0m 2s/step - accuracy: 0.6737 - loss: 0.7966
+[1m 19/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m5:08[0m 2s/step - accuracy: 0.6769 - loss: 0.7870
+[1m 20/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m5:06[0m 2s/step - accuracy: 0.6799 - loss: 0.7779
+[1m 21/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m5:04[0m 2s/step - accuracy: 0.6828 - loss: 0.7691
+[1m 22/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m5:01[0m 2s/step - accuracy: 0.6851 - loss: 0.7613
+[1m 23/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m4:59[0m 2s/step - accuracy: 0.6874 - loss: 0.7541
+[1m 24/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m5:00[0m 2s/step - accuracy: 0.6896 - loss: 0.7472
+[1m 25/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m4:59[0m 2s/step - accuracy: 0.6916 - loss: 0.7405
+[1m 26/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m4:57[0m 2s/step - accuracy: 0.6936 - loss: 0.7341
+[1m 27/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m4:54[0m 2s/step - accuracy: 0.6956 - loss: 0.7280
+[1m 28/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m4:51[0m 2s/step - accuracy: 0.6976 - loss: 0.7220
+[1m 29/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m4:49[0m 2s/step - accuracy: 0.6996 - loss: 0.7163
+[1m 30/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m4:47[0m 2s/step - accuracy: 0.7016 - loss: 0.7107
+[1m 31/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m4:45[0m 2s/step - accuracy: 0.7036 - loss: 0.7052
+[1m 32/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m4:43[0m 2s/step - accuracy: 0.7055 - loss: 0.7002
+[1m 33/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m4:41[0m 2s/step - accuracy: 0.7074 - loss: 0.6956
+[1m 34/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m4:38[0m 2s/step - accuracy: 0.7092 - loss: 0.6912
+[1m 35/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m4:36[0m 2s/step - accuracy: 0.7109 - loss: 0.6868
+[1m 36/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m4:34[0m 2s/step - accuracy: 0.7126 - loss: 0.6827
+[1m 37/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m4:32[0m 2s/step - accuracy: 0.7143 - loss: 0.6785
+[1m 38/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:30[0m 2s/step - accuracy: 0.7159 - loss: 0.6746
+[1m 39/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:27[0m 2s/step - accuracy: 0.7175 - loss: 0.6708
+[1m 40/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:25[0m 2s/step - accuracy: 0.7190 - loss: 0.6671
+[1m 41/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:24[0m 2s/step - accuracy: 0.7205 - loss: 0.6636
+[1m 42/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:24[0m 2s/step - accuracy: 0.7219 - loss: 0.6602
+[1m 43/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:22[0m 2s/step - accuracy: 0.7232 - loss: 0.6571
+[1m 44/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:19[0m 2s/step - accuracy: 0.7245 - loss: 0.6540
+[1m 45/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:17[0m 2s/step - accuracy: 0.7257 - loss: 0.6510
+[1m 46/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:15[0m 2s/step - accuracy: 0.7269 - loss: 0.6480
+[1m 47/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:14[0m 2s/step - accuracy: 0.7281 - loss: 0.6452
+[1m 48/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:13[0m 2s/step - accuracy: 0.7292 - loss: 0.6424
+[1m 49/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:11[0m 2s/step - accuracy: 0.7304 - loss: 0.6396
+[1m 50/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:09[0m 2s/step - accuracy: 0.7315 - loss: 0.6369
+[1m 51/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:07[0m 2s/step - accuracy: 0.7325 - loss: 0.6343
+[1m 52/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:05[0m 2s/step - accuracy: 0.7335 - loss: 0.6318
+[1m 53/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:04[0m 2s/step - accuracy: 0.7345 - loss: 0.6293
+[1m 54/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:02[0m 2s/step - accuracy: 0.7354 - loss: 0.6270
+[1m 55/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:01[0m 2s/step - accuracy: 0.7363 - loss: 0.6247
+[1m 56/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:00[0m 2s/step - accuracy: 0.7373 - loss: 0.6224
+[1m 57/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m3:58[0m 2s/step - accuracy: 0.7381 - loss: 0.6202
+[1m 58/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m3:57[0m 2s/step - accuracy: 0.7390 - loss: 0.6182
+[1m 59/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m3:55[0m 2s/step - accuracy: 0.7398 - loss: 0.6161
+[1m 60/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m3:54[0m 2s/step - accuracy: 0.7406 - loss: 0.6141
+[1m 61/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m3:52[0m 2s/step - accuracy: 0.7414 - loss: 0.6122
+[1m 62/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m3:50[0m 2s/step - accuracy: 0.7422 - loss: 0.6103
+[1m 63/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m3:48[0m 2s/step - accuracy: 0.7430 - loss: 0.6084
+[1m 64/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m3:46[0m 2s/step - accuracy: 0.7437 - loss: 0.6066
+[1m 65/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m3:44[0m 2s/step - accuracy: 0.7445 - loss: 0.6047
+[1m 66/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:42[0m 2s/step - accuracy: 0.7452 - loss: 0.6030
+[1m 67/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:40[0m 2s/step - accuracy: 0.7459 - loss: 0.6012
+[1m 68/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:38[0m 2s/step - accuracy: 0.7466 - loss: 0.5995
+[1m 69/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:36[0m 2s/step - accuracy: 0.7473 - loss: 0.5978
+[1m 70/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:34[0m 2s/step - accuracy: 0.7480 - loss: 0.5961
+[1m 71/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:34[0m 2s/step - accuracy: 0.7487 - loss: 0.5945
+[1m 72/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:33[0m 2s/step - accuracy: 0.7494 - loss: 0.5928
+[1m 73/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:31[0m 2s/step - accuracy: 0.7501 - loss: 0.5912
+[1m 74/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:29[0m 2s/step - accuracy: 0.7508 - loss: 0.5896
+[1m 75/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:28[0m 2s/step - accuracy: 0.7514 - loss: 0.5880
+[1m 76/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:26[0m 2s/step - accuracy: 0.7521 - loss: 0.5864
+[1m 77/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:24[0m 2s/step - accuracy: 0.7527 - loss: 0.5848
+[1m 78/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:23[0m 2s/step - accuracy: 0.7534 - loss: 0.5833
+[1m 79/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:21[0m 2s/step - accuracy: 0.7541 - loss: 0.5817
+[1m 80/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:19[0m 2s/step - accuracy: 0.7547 - loss: 0.5802
+[1m 81/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:18[0m 2s/step - accuracy: 0.7553 - loss: 0.5786
+[1m 82/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:16[0m 2s/step - accuracy: 0.7560 - loss: 0.5771
+[1m 83/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:14[0m 2s/step - accuracy: 0.7566 - loss: 0.5756
+[1m 84/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:12[0m 2s/step - accuracy: 0.7572 - loss: 0.5741
+[1m 85/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:11[0m 2s/step - accuracy: 0.7578 - loss: 0.5727
+[1m 86/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:09[0m 2s/step - accuracy: 0.7584 - loss: 0.5713
+[1m 87/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:07[0m 2s/step - accuracy: 0.7591 - loss: 0.5699
+[1m 88/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:05[0m 2s/step - accuracy: 0.7597 - loss: 0.5685
+[1m 89/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:03[0m 2s/step - accuracy: 0.7603 - loss: 0.5671
+[1m 90/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:02[0m 2s/step - accuracy: 0.7609 - loss: 0.5657
+[1m 91/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:00[0m 2s/step - accuracy: 0.7614 - loss: 0.5644
+[1m 92/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m2:58[0m 2s/step - accuracy: 0.7620 - loss: 0.5630
+[1m 93/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m2:56[0m 2s/step - accuracy: 0.7626 - loss: 0.5617
+[1m 94/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m2:55[0m 2s/step - accuracy: 0.7632 - loss: 0.5604
+[1m 95/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m2:53[0m 2s/step - accuracy: 0.7638 - loss: 0.5591
+[1m 96/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m2:51[0m 2s/step - accuracy: 0.7643 - loss: 0.5578
+[1m 97/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m2:49[0m 2s/step - accuracy: 0.7649 - loss: 0.5565
+[1m 98/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m2:47[0m 2s/step - accuracy: 0.7654 - loss: 0.5552
+[1m 99/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m2:45[0m 2s/step - accuracy: 0.7660 - loss: 0.5540
+[1m100/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m2:43[0m 2s/step - accuracy: 0.7665 - loss: 0.5528
+[1m101/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m2:41[0m 2s/step - accuracy: 0.7670 - loss: 0.5516
+[1m102/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m2:39[0m 2s/step - accuracy: 0.7676 - loss: 0.5504
+[1m103/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m2:37[0m 2s/step - accuracy: 0.7681 - loss: 0.5492
+[1m104/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:36[0m 2s/step - accuracy: 0.7686 - loss: 0.5480
+[1m105/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:34[0m 2s/step - accuracy: 0.7691 - loss: 0.5468
+[1m106/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:32[0m 2s/step - accuracy: 0.7696 - loss: 0.5457
+[1m107/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:30[0m 2s/step - accuracy: 0.7701 - loss: 0.5445
+[1m108/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:28[0m 2s/step - accuracy: 0.7706 - loss: 0.5434
+[1m109/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:26[0m 2s/step - accuracy: 0.7711 - loss: 0.5423
+[1m110/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:24[0m 2s/step - accuracy: 0.7716 - loss: 0.5412
+[1m111/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:22[0m 2s/step - accuracy: 0.7720 - loss: 0.5401
+[1m112/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:20[0m 2s/step - accuracy: 0.7725 - loss: 0.5390
+[1m113/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:18[0m 2s/step - accuracy: 0.7729 - loss: 0.5380
+[1m114/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:16[0m 2s/step - accuracy: 0.7734 - loss: 0.5369
+[1m115/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:14[0m 2s/step - accuracy: 0.7738 - loss: 0.5359
+[1m116/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:12[0m 2s/step - accuracy: 0.7743 - loss: 0.5349
+[1m117/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:10[0m 2s/step - accuracy: 0.7747 - loss: 0.5339
+[1m118/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:08[0m 2s/step - accuracy: 0.7751 - loss: 0.5329
+[1m119/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:07[0m 2s/step - accuracy: 0.7756 - loss: 0.5319
+[1m120/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:05[0m 2s/step - accuracy: 0.7760 - loss: 0.5309
+[1m121/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:03[0m 2s/step - accuracy: 0.7764 - loss: 0.5299
+[1m122/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:01[0m 2s/step - accuracy: 0.7768 - loss: 0.5289
+[1m123/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m1:59[0m 2s/step - accuracy: 0.7773 - loss: 0.5280
+[1m124/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m1:57[0m 2s/step - accuracy: 0.7777 - loss: 0.5270
+[1m125/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m1:55[0m 2s/step - accuracy: 0.7781 - loss: 0.5261
+[1m126/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m1:53[0m 2s/step - accuracy: 0.7785 - loss: 0.5251
+[1m127/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m1:51[0m 2s/step - accuracy: 0.7789 - loss: 0.5242
+[1m128/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m1:49[0m 2s/step - accuracy: 0.7793 - loss: 0.5233
+[1m129/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m1:47[0m 2s/step - accuracy: 0.7797 - loss: 0.5224
+[1m130/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m1:45[0m 2s/step - accuracy: 0.7801 - loss: 0.5215
+[1m131/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m1:43[0m 2s/step - accuracy: 0.7804 - loss: 0.5206
+[1m132/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:42[0m 2s/step - accuracy: 0.7808 - loss: 0.5198
+[1m133/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:40[0m 2s/step - accuracy: 0.7812 - loss: 0.5189
+[1m134/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:38[0m 2s/step - accuracy: 0.7816 - loss: 0.5180
+[1m135/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:36[0m 2s/step - accuracy: 0.7819 - loss: 0.5172
+[1m136/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:34[0m 2s/step - accuracy: 0.7823 - loss: 0.5163
+[1m137/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:32[0m 2s/step - accuracy: 0.7827 - loss: 0.5155
+[1m138/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:30[0m 2s/step - accuracy: 0.7830 - loss: 0.5147
+[1m139/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:28[0m 2s/step - accuracy: 0.7834 - loss: 0.5139
+[1m140/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:26[0m 2s/step - accuracy: 0.7838 - loss: 0.5130
+[1m141/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:25[0m 2s/step - accuracy: 0.7841 - loss: 0.5122
+[1m142/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:23[0m 2s/step - accuracy: 0.7845 - loss: 0.5114
+[1m143/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:21[0m 2s/step - accuracy: 0.7849 - loss: 0.5106
+[1m144/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:19[0m 2s/step - accuracy: 0.7852 - loss: 0.5098
+[1m145/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:17[0m 2s/step - accuracy: 0.7856 - loss: 0.5090
+[1m146/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:15[0m 2s/step - accuracy: 0.7859 - loss: 0.5082
+[1m147/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:13[0m 2s/step - accuracy: 0.7863 - loss: 0.5074
+[1m148/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:12[0m 2s/step - accuracy: 0.7866 - loss: 0.5067
+[1m149/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:10[0m 2s/step - accuracy: 0.7870 - loss: 0.5059
+[1m150/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:08[0m 2s/step - accuracy: 0.7873 - loss: 0.5051
+[1m151/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m1:06[0m 2s/step - accuracy: 0.7877 - loss: 0.5043
+[1m152/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m1:04[0m 2s/step - accuracy: 0.7880 - loss: 0.5036
+[1m153/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m1:02[0m 2s/step - accuracy: 0.7883 - loss: 0.5028
+[1m154/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m1:00[0m 2s/step - accuracy: 0.7887 - loss: 0.5021
+[1m155/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m59s[0m 2s/step - accuracy: 0.7890 - loss: 0.5013 
+[1m156/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m57s[0m 2s/step - accuracy: 0.7894 - loss: 0.5006
+[1m157/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m55s[0m 2s/step - accuracy: 0.7897 - loss: 0.4998
+[1m158/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m53s[0m 2s/step - accuracy: 0.7900 - loss: 0.4991
+[1m159/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m51s[0m 2s/step - accuracy: 0.7904 - loss: 0.4984
+[1m160/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m50s[0m 2s/step - accuracy: 0.7907 - loss: 0.4976
+[1m161/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m48s[0m 2s/step - accuracy: 0.7910 - loss: 0.4969
+[1m162/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m46s[0m 2s/step - accuracy: 0.7913 - loss: 0.4962
+[1m163/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m44s[0m 2s/step - accuracy: 0.7917 - loss: 0.4955
+[1m164/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m42s[0m 2s/step - accuracy: 0.7920 - loss: 0.4948
+[1m165/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m41s[0m 2s/step - accuracy: 0.7923 - loss: 0.4941
+[1m166/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m39s[0m 2s/step - accuracy: 0.7926 - loss: 0.4934
+[1m167/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m37s[0m 2s/step - accuracy: 0.7929 - loss: 0.4927
+[1m168/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m35s[0m 2s/step - accuracy: 0.7933 - loss: 0.4920
+[1m169/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m34s[0m 2s/step - accuracy: 0.7936 - loss: 0.4913
+[1m170/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m32s[0m 2s/step - accuracy: 0.7939 - loss: 0.4906
+[1m171/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m30s[0m 2s/step - accuracy: 0.7942 - loss: 0.4899
+[1m172/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m28s[0m 2s/step - accuracy: 0.7945 - loss: 0.4892
+[1m173/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m27s[0m 2s/step - accuracy: 0.7948 - loss: 0.4885
+[1m174/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m25s[0m 2s/step - accuracy: 0.7951 - loss: 0.4879
+[1m175/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m23s[0m 2s/step - accuracy: 0.7954 - loss: 0.4872
+[1m176/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m21s[0m 2s/step - accuracy: 0.7957 - loss: 0.4865
+[1m177/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m19s[0m 2s/step - accuracy: 0.7960 - loss: 0.4859
+[1m178/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m18s[0m 2s/step - accuracy: 0.7963 - loss: 0.4852
+[1m179/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m16s[0m 2s/step - accuracy: 0.7966 - loss: 0.4846
+[1m180/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m14s[0m 2s/step - accuracy: 0.7969 - loss: 0.4839
+[1m181/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m12s[0m 2s/step - accuracy: 0.7972 - loss: 0.4832
+[1m182/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m10s[0m 2s/step - accuracy: 0.7975 - loss: 0.4826
+[1m183/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m9s[0m 2s/step - accuracy: 0.7978 - loss: 0.4819 
+[1m184/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m7s[0m 2s/step - accuracy: 0.7981 - loss: 0.4813
+[1m185/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m5s[0m 2s/step - accuracy: 0.7983 - loss: 0.4807
+[1m186/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m3s[0m 2s/step - accuracy: 0.7986 - loss: 0.4800
+[1m187/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m1s[0m 2s/step - accuracy: 0.7989 - loss: 0.4794
+[1m188/188[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 2s/step - accuracy: 0.7992 - loss: 0.4787
+[1m188/188[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m364s[0m 2s/step - accuracy: 0.7995 - loss: 0.4781 - val_accuracy: 0.6103 - val_loss: 1.8224 - learning_rate: 0.0010
+Epoch 2/2
+
+[1m  1/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m7:48[0m 3s/step - accuracy: 0.8906 - loss: 0.2678
+[1m  2/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m6:01[0m 2s/step - accuracy: 0.8984 - loss: 0.2530
+[1m  3/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m6:04[0m 2s/step - accuracy: 0.8993 - loss: 0.2503
+[1m  4/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m5:58[0m 2s/step - accuracy: 0.9010 - loss: 0.2457
+[1m  5/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m5:53[0m 2s/step - accuracy: 0.9027 - loss: 0.2445
+[1m  6/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m5:44[0m 2s/step - accuracy: 0.9042 - loss: 0.2433
+[1m  7/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m5:39[0m 2s/step - accuracy: 0.9061 - loss: 0.2407
+[1m  8/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m5:33[0m 2s/step - accuracy: 0.9080 - loss: 0.2378
+[1m  9/188[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m5:29[0m 2s/step - accuracy: 0.9092 - loss: 0.2358
+[1m 10/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:30[0m 2s/step - accuracy: 0.9100 - loss: 0.2344
+[1m 11/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:30[0m 2s/step - accuracy: 0.9106 - loss: 0.2334
+[1m 12/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:28[0m 2s/step - accuracy: 0.9115 - loss: 0.2317
+[1m 13/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:27[0m 2s/step - accuracy: 0.9122 - loss: 0.2301
+[1m 14/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:32[0m 2s/step - accuracy: 0.9127 - loss: 0.2292
+[1m 15/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:40[0m 2s/step - accuracy: 0.9131 - loss: 0.2284
+[1m 16/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:40[0m 2s/step - accuracy: 0.9134 - loss: 0.2276
+[1m 17/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:37[0m 2s/step - accuracy: 0.9139 - loss: 0.2267
+[1m 18/188[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m5:38[0m 2s/step - accuracy: 0.9142 - loss: 0.2259
+[1m 19/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m5:36[0m 2s/step - accuracy: 0.9145 - loss: 0.2252
+[1m 20/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m5:34[0m 2s/step - accuracy: 0.9147 - loss: 0.2248
+[1m 21/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m5:31[0m 2s/step - accuracy: 0.9149 - loss: 0.2244
+[1m 22/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m5:32[0m 2s/step - accuracy: 0.9150 - loss: 0.2242
+[1m 23/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m5:29[0m 2s/step - accuracy: 0.9152 - loss: 0.2242
+[1m 24/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m5:27[0m 2s/step - accuracy: 0.9153 - loss: 0.2242
+[1m 25/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m5:24[0m 2s/step - accuracy: 0.9154 - loss: 0.2242
+[1m 26/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m5:20[0m 2s/step - accuracy: 0.9154 - loss: 0.2241
+[1m 27/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m5:16[0m 2s/step - accuracy: 0.9154 - loss: 0.2240
+[1m 28/188[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m5:14[0m 2s/step - accuracy: 0.9154 - loss: 0.2241
+[1m 29/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m5:11[0m 2s/step - accuracy: 0.9154 - loss: 0.2241
+[1m 30/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m5:08[0m 2s/step - accuracy: 0.9153 - loss: 0.2244
+[1m 31/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m5:07[0m 2s/step - accuracy: 0.9153 - loss: 0.2246
+[1m 32/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m5:07[0m 2s/step - accuracy: 0.9151 - loss: 0.2249
+[1m 33/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m5:07[0m 2s/step - accuracy: 0.9150 - loss: 0.2253
+[1m 34/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m5:06[0m 2s/step - accuracy: 0.9149 - loss: 0.2257
+[1m 35/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m5:05[0m 2s/step - accuracy: 0.9147 - loss: 0.2260
+[1m 36/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m5:04[0m 2s/step - accuracy: 0.9145 - loss: 0.2263
+[1m 37/188[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m5:02[0m 2s/step - accuracy: 0.9144 - loss: 0.2265
+[1m 38/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:59[0m 2s/step - accuracy: 0.9143 - loss: 0.2268
+[1m 39/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:57[0m 2s/step - accuracy: 0.9143 - loss: 0.2271
+[1m 40/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:54[0m 2s/step - accuracy: 0.9142 - loss: 0.2273
+[1m 41/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:52[0m 2s/step - accuracy: 0.9141 - loss: 0.2276
+[1m 42/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:50[0m 2s/step - accuracy: 0.9140 - loss: 0.2279
+[1m 43/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:48[0m 2s/step - accuracy: 0.9140 - loss: 0.2282
+[1m 44/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:46[0m 2s/step - accuracy: 0.9139 - loss: 0.2284
+[1m 45/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:42[0m 2s/step - accuracy: 0.9139 - loss: 0.2287
+[1m 46/188[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m4:39[0m 2s/step - accuracy: 0.9138 - loss: 0.2290
+[1m 47/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:36[0m 2s/step - accuracy: 0.9137 - loss: 0.2293
+[1m 48/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:34[0m 2s/step - accuracy: 0.9136 - loss: 0.2295
+[1m 49/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:31[0m 2s/step - accuracy: 0.9135 - loss: 0.2298
+[1m 50/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:29[0m 2s/step - accuracy: 0.9134 - loss: 0.2300
+[1m 51/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:27[0m 2s/step - accuracy: 0.9134 - loss: 0.2302
+[1m 52/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:27[0m 2s/step - accuracy: 0.9133 - loss: 0.2304
+[1m 53/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:26[0m 2s/step - accuracy: 0.9133 - loss: 0.2306
+[1m 54/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:26[0m 2s/step - accuracy: 0.9133 - loss: 0.2307
+[1m 55/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:26[0m 2s/step - accuracy: 0.9133 - loss: 0.2308
+[1m 56/188[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m4:23[0m 2s/step - accuracy: 0.9133 - loss: 0.2309
+[1m 57/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m4:20[0m 2s/step - accuracy: 0.9132 - loss: 0.2310
+[1m 58/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m4:17[0m 2s/step - accuracy: 0.9132 - loss: 0.2311
+[1m 59/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m4:15[0m 2s/step - accuracy: 0.9132 - loss: 0.2311
+[1m 60/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m4:13[0m 2s/step - accuracy: 0.9132 - loss: 0.2312
+[1m 61/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m4:11[0m 2s/step - accuracy: 0.9132 - loss: 0.2312
+[1m 62/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m4:09[0m 2s/step - accuracy: 0.9132 - loss: 0.2312
+[1m 63/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m4:07[0m 2s/step - accuracy: 0.9132 - loss: 0.2313
+[1m 64/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m4:06[0m 2s/step - accuracy: 0.9132 - loss: 0.2313
+[1m 65/188[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m4:04[0m 2s/step - accuracy: 0.9132 - loss: 0.2314
+[1m 66/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m4:02[0m 2s/step - accuracy: 0.9132 - loss: 0.2314
+[1m 67/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m4:00[0m 2s/step - accuracy: 0.9132 - loss: 0.2314
+[1m 68/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:58[0m 2s/step - accuracy: 0.9133 - loss: 0.2314
+[1m 69/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:56[0m 2s/step - accuracy: 0.9133 - loss: 0.2314
+[1m 70/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:54[0m 2s/step - accuracy: 0.9133 - loss: 0.2314
+[1m 71/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:52[0m 2s/step - accuracy: 0.9133 - loss: 0.2314
+[1m 72/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:50[0m 2s/step - accuracy: 0.9133 - loss: 0.2314
+[1m 73/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:48[0m 2s/step - accuracy: 0.9133 - loss: 0.2315
+[1m 74/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:46[0m 2s/step - accuracy: 0.9133 - loss: 0.2315
+[1m 75/188[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m3:43[0m 2s/step - accuracy: 0.9132 - loss: 0.2315
+[1m 76/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:41[0m 2s/step - accuracy: 0.9132 - loss: 0.2315
+[1m 77/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:39[0m 2s/step - accuracy: 0.9132 - loss: 0.2315
+[1m 78/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:36[0m 2s/step - accuracy: 0.9132 - loss: 0.2315
+[1m 79/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:34[0m 2s/step - accuracy: 0.9132 - loss: 0.2315
+[1m 80/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:32[0m 2s/step - accuracy: 0.9132 - loss: 0.2315
+[1m 81/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:30[0m 2s/step - accuracy: 0.9132 - loss: 0.2315
+[1m 82/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:28[0m 2s/step - accuracy: 0.9132 - loss: 0.2315
+[1m 83/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:27[0m 2s/step - accuracy: 0.9132 - loss: 0.2315
+[1m 84/188[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m3:26[0m 2s/step - accuracy: 0.9132 - loss: 0.2316
+[1m 85/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:24[0m 2s/step - accuracy: 0.9131 - loss: 0.2316
+[1m 86/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:22[0m 2s/step - accuracy: 0.9131 - loss: 0.2316
+[1m 87/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:20[0m 2s/step - accuracy: 0.9131 - loss: 0.2316
+[1m 88/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:18[0m 2s/step - accuracy: 0.9131 - loss: 0.2316
+[1m 89/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:17[0m 2s/step - accuracy: 0.9131 - loss: 0.2317
+[1m 90/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:16[0m 2s/step - accuracy: 0.9131 - loss: 0.2317
+[1m 91/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:14[0m 2s/step - accuracy: 0.9130 - loss: 0.2317
+[1m 92/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:12[0m 2s/step - accuracy: 0.9130 - loss: 0.2318
+[1m 93/188[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m3:10[0m 2s/step - accuracy: 0.9130 - loss: 0.2318
+[1m 94/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m3:09[0m 2s/step - accuracy: 0.9130 - loss: 0.2318
+[1m 95/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m3:07[0m 2s/step - accuracy: 0.9129 - loss: 0.2318
+[1m 96/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m3:05[0m 2s/step - accuracy: 0.9129 - loss: 0.2318
+[1m 97/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m3:03[0m 2s/step - accuracy: 0.9129 - loss: 0.2319
+[1m 98/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m3:01[0m 2s/step - accuracy: 0.9129 - loss: 0.2319
+[1m 99/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m2:59[0m 2s/step - accuracy: 0.9129 - loss: 0.2319
+[1m100/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m2:57[0m 2s/step - accuracy: 0.9128 - loss: 0.2319
+[1m101/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m2:55[0m 2s/step - accuracy: 0.9128 - loss: 0.2319
+[1m102/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m2:53[0m 2s/step - accuracy: 0.9128 - loss: 0.2319
+[1m103/188[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m2:51[0m 2s/step - accuracy: 0.9128 - loss: 0.2319
+[1m104/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:49[0m 2s/step - accuracy: 0.9128 - loss: 0.2319
+[1m105/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:47[0m 2s/step - accuracy: 0.9128 - loss: 0.2319
+[1m106/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:45[0m 2s/step - accuracy: 0.9128 - loss: 0.2319
+[1m107/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:43[0m 2s/step - accuracy: 0.9128 - loss: 0.2319
+[1m108/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:41[0m 2s/step - accuracy: 0.9128 - loss: 0.2318
+[1m109/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:39[0m 2s/step - accuracy: 0.9127 - loss: 0.2318
+[1m110/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:36[0m 2s/step - accuracy: 0.9127 - loss: 0.2318
+[1m111/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:34[0m 2s/step - accuracy: 0.9127 - loss: 0.2318
+[1m112/188[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m2:32[0m 2s/step - accuracy: 0.9127 - loss: 0.2318
+[1m113/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:30[0m 2s/step - accuracy: 0.9127 - loss: 0.2318
+[1m114/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:28[0m 2s/step - accuracy: 0.9127 - loss: 0.2318
+[1m115/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:26[0m 2s/step - accuracy: 0.9127 - loss: 0.2317
+[1m116/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:24[0m 2s/step - accuracy: 0.9127 - loss: 0.2317
+[1m117/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:22[0m 2s/step - accuracy: 0.9127 - loss: 0.2316
+[1m118/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:20[0m 2s/step - accuracy: 0.9128 - loss: 0.2316
+[1m119/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:18[0m 2s/step - accuracy: 0.9128 - loss: 0.2315
+[1m120/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:16[0m 2s/step - accuracy: 0.9128 - loss: 0.2315
+[1m121/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:14[0m 2s/step - accuracy: 0.9128 - loss: 0.2314
+[1m122/188[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m2:12[0m 2s/step - accuracy: 0.9128 - loss: 0.2314
+[1m123/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m2:10[0m 2s/step - accuracy: 0.9128 - loss: 0.2313
+[1m124/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m2:08[0m 2s/step - accuracy: 0.9128 - loss: 0.2312
+[1m125/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m2:06[0m 2s/step - accuracy: 0.9129 - loss: 0.2312
+[1m126/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m2:04[0m 2s/step - accuracy: 0.9129 - loss: 0.2311
+[1m127/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m2:02[0m 2s/step - accuracy: 0.9129 - loss: 0.2310
+[1m128/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m2:00[0m 2s/step - accuracy: 0.9129 - loss: 0.2309
+[1m129/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m1:58[0m 2s/step - accuracy: 0.9129 - loss: 0.2308
+[1m130/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m1:56[0m 2s/step - accuracy: 0.9130 - loss: 0.2308
+[1m131/188[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m1:54[0m 2s/step - accuracy: 0.9130 - loss: 0.2307
+[1m132/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:52[0m 2s/step - accuracy: 0.9130 - loss: 0.2306
+[1m133/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:50[0m 2s/step - accuracy: 0.9130 - loss: 0.2305
+[1m134/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:48[0m 2s/step - accuracy: 0.9130 - loss: 0.2304
+[1m135/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:45[0m 2s/step - accuracy: 0.9131 - loss: 0.2304
+[1m136/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:43[0m 2s/step - accuracy: 0.9131 - loss: 0.2303
+[1m137/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:41[0m 2s/step - accuracy: 0.9131 - loss: 0.2302
+[1m138/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:39[0m 2s/step - accuracy: 0.9131 - loss: 0.2301
+[1m139/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:37[0m 2s/step - accuracy: 0.9131 - loss: 0.2300
+[1m140/188[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m1:35[0m 2s/step - accuracy: 0.9132 - loss: 0.2299
+[1m141/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:33[0m 2s/step - accuracy: 0.9132 - loss: 0.2299
+[1m142/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:31[0m 2s/step - accuracy: 0.9132 - loss: 0.2298
+[1m143/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:29[0m 2s/step - accuracy: 0.9132 - loss: 0.2297
+[1m144/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:27[0m 2s/step - accuracy: 0.9133 - loss: 0.2297
+[1m145/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:25[0m 2s/step - accuracy: 0.9133 - loss: 0.2296
+[1m146/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:23[0m 2s/step - accuracy: 0.9133 - loss: 0.2295
+[1m147/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:21[0m 2s/step - accuracy: 0.9133 - loss: 0.2295
+[1m148/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:19[0m 2s/step - accuracy: 0.9133 - loss: 0.2294
+[1m149/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:17[0m 2s/step - accuracy: 0.9133 - loss: 0.2293
+[1m150/188[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m1:15[0m 2s/step - accuracy: 0.9134 - loss: 0.2293
+[1m151/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m1:13[0m 2s/step - accuracy: 0.9134 - loss: 0.2292
+[1m152/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m1:11[0m 2s/step - accuracy: 0.9134 - loss: 0.2291
+[1m153/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m1:09[0m 2s/step - accuracy: 0.9134 - loss: 0.2290
+[1m154/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m1:07[0m 2s/step - accuracy: 0.9134 - loss: 0.2290
+[1m155/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m1:05[0m 2s/step - accuracy: 0.9135 - loss: 0.2289
+[1m156/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m1:03[0m 2s/step - accuracy: 0.9135 - loss: 0.2289
+[1m157/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m1:01[0m 2s/step - accuracy: 0.9135 - loss: 0.2288
+[1m158/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m59s[0m 2s/step - accuracy: 0.9135 - loss: 0.2287 
+[1m159/188[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m57s[0m 2s/step - accuracy: 0.9135 - loss: 0.2287
+[1m160/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m55s[0m 2s/step - accuracy: 0.9135 - loss: 0.2286
+[1m161/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m53s[0m 2s/step - accuracy: 0.9135 - loss: 0.2286
+[1m162/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m51s[0m 2s/step - accuracy: 0.9136 - loss: 0.2285
+[1m163/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m49s[0m 2s/step - accuracy: 0.9136 - loss: 0.2285
+[1m164/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m47s[0m 2s/step - accuracy: 0.9136 - loss: 0.2284
+[1m165/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m45s[0m 2s/step - accuracy: 0.9136 - loss: 0.2283
+[1m166/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m43s[0m 2s/step - accuracy: 0.9136 - loss: 0.2283
+[1m167/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m41s[0m 2s/step - accuracy: 0.9136 - loss: 0.2282
+[1m168/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m39s[0m 2s/step - accuracy: 0.9136 - loss: 0.2282
+[1m169/188[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m37s[0m 2s/step - accuracy: 0.9137 - loss: 0.2281
+[1m170/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m35s[0m 2s/step - accuracy: 0.9137 - loss: 0.2280
+[1m171/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m33s[0m 2s/step - accuracy: 0.9137 - loss: 0.2280
+[1m172/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m31s[0m 2s/step - accuracy: 0.9137 - loss: 0.2279
+[1m173/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m29s[0m 2s/step - accuracy: 0.9137 - loss: 0.2278
+[1m174/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m27s[0m 2s/step - accuracy: 0.9137 - loss: 0.2278
+[1m175/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m25s[0m 2s/step - accuracy: 0.9137 - loss: 0.2277
+[1m176/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m23s[0m 2s/step - accuracy: 0.9138 - loss: 0.2277
+[1m177/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m21s[0m 2s/step - accuracy: 0.9138 - loss: 0.2276
+[1m178/188[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m19s[0m 2s/step - accuracy: 0.9138 - loss: 0.2275
+[1m179/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m17s[0m 2s/step - accuracy: 0.9138 - loss: 0.2275
+[1m180/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m15s[0m 2s/step - accuracy: 0.9138 - loss: 0.2274
+[1m181/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m13s[0m 2s/step - accuracy: 0.9139 - loss: 0.2273
+[1m182/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m11s[0m 2s/step - accuracy: 0.9139 - loss: 0.2273
+[1m183/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m9s[0m 2s/step - accuracy: 0.9139 - loss: 0.2272 
+[1m184/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m7s[0m 2s/step - accuracy: 0.9139 - loss: 0.2271
+[1m185/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m5s[0m 2s/step - accuracy: 0.9139 - loss: 0.2271
+[1m186/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m3s[0m 2s/step - accuracy: 0.9139 - loss: 0.2270
+[1m187/188[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m1s[0m 2s/step - accuracy: 0.9140 - loss: 0.2269
+[1m188/188[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 2s/step - accuracy: 0.9140 - loss: 0.2268
+[1m188/188[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m388s[0m 2s/step - accuracy: 0.9140 - loss: 0.2268 - val_accuracy: 0.8187 - val_loss: 0.5357 - learning_rate: 0.0010</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>history_df <span class="op">=</span> pd.DataFrame(history.history)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>history_df.loc[:,[<span class="st">'loss'</span>,<span class="st">'val_loss'</span>]].plot()</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>history_df.loc[:,[<span class="st">'accuracy'</span>,<span class="st">'val_accuracy'</span>]].plot()</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-12-7.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-12-8.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>Y_pred <span class="op">=</span> model.predict(X_val)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+[1m 1/94[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m24s[0m 269ms/step
+[1m 2/94[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m17s[0m 193ms/step
+[1m 3/94[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m18s[0m 207ms/step
+[1m 4/94[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m20s[0m 225ms/step
+[1m 5/94[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m20s[0m 232ms/step
+[1m 6/94[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m20s[0m 228ms/step
+[1m 7/94[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m19s[0m 225ms/step
+[1m 8/94[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m19s[0m 222ms/step
+[1m 9/94[0m [32m━[0m[37m━━━━━━━━━━━━━━━━━━━[0m [1m18s[0m 220ms/step
+[1m10/94[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m18s[0m 218ms/step
+[1m11/94[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m17s[0m 217ms/step
+[1m12/94[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m17s[0m 215ms/step
+[1m13/94[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m17s[0m 214ms/step
+[1m14/94[0m [32m━━[0m[37m━━━━━━━━━━━━━━━━━━[0m [1m17s[0m 213ms/step
+[1m15/94[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m16s[0m 213ms/step
+[1m16/94[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m16s[0m 212ms/step
+[1m17/94[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m16s[0m 211ms/step
+[1m18/94[0m [32m━━━[0m[37m━━━━━━━━━━━━━━━━━[0m [1m16s[0m 211ms/step
+[1m19/94[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m15s[0m 211ms/step
+[1m20/94[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m15s[0m 211ms/step
+[1m21/94[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m15s[0m 210ms/step
+[1m22/94[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m15s[0m 210ms/step
+[1m23/94[0m [32m━━━━[0m[37m━━━━━━━━━━━━━━━━[0m [1m14s[0m 209ms/step
+[1m24/94[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m14s[0m 208ms/step
+[1m25/94[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m14s[0m 208ms/step
+[1m26/94[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m14s[0m 208ms/step
+[1m27/94[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m13s[0m 207ms/step
+[1m28/94[0m [32m━━━━━[0m[37m━━━━━━━━━━━━━━━[0m [1m13s[0m 207ms/step
+[1m29/94[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m13s[0m 207ms/step
+[1m30/94[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m13s[0m 206ms/step
+[1m31/94[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m12s[0m 206ms/step
+[1m32/94[0m [32m━━━━━━[0m[37m━━━━━━━━━━━━━━[0m [1m12s[0m 206ms/step
+[1m33/94[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m12s[0m 205ms/step
+[1m34/94[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m12s[0m 205ms/step
+[1m35/94[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m12s[0m 205ms/step
+[1m36/94[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m11s[0m 205ms/step
+[1m37/94[0m [32m━━━━━━━[0m[37m━━━━━━━━━━━━━[0m [1m11s[0m 205ms/step
+[1m38/94[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m11s[0m 204ms/step
+[1m39/94[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m11s[0m 204ms/step
+[1m40/94[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m11s[0m 204ms/step
+[1m41/94[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m10s[0m 204ms/step
+[1m42/94[0m [32m━━━━━━━━[0m[37m━━━━━━━━━━━━[0m [1m10s[0m 203ms/step
+[1m43/94[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m10s[0m 203ms/step
+[1m44/94[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m10s[0m 203ms/step
+[1m45/94[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m9s[0m 203ms/step 
+[1m46/94[0m [32m━━━━━━━━━[0m[37m━━━━━━━━━━━[0m [1m9s[0m 203ms/step
+[1m47/94[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m9s[0m 203ms/step
+[1m48/94[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m9s[0m 203ms/step
+[1m49/94[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m9s[0m 203ms/step
+[1m50/94[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m8s[0m 203ms/step
+[1m51/94[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m8s[0m 203ms/step
+[1m52/94[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m8s[0m 203ms/step
+[1m53/94[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m8s[0m 203ms/step
+[1m54/94[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m8s[0m 204ms/step
+[1m55/94[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m7s[0m 204ms/step
+[1m56/94[0m [32m━━━━━━━━━━━[0m[37m━━━━━━━━━[0m [1m7s[0m 204ms/step
+[1m57/94[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m7s[0m 204ms/step
+[1m58/94[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m7s[0m 204ms/step
+[1m59/94[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m7s[0m 205ms/step
+[1m60/94[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m7s[0m 206ms/step
+[1m61/94[0m [32m━━━━━━━━━━━━[0m[37m━━━━━━━━[0m [1m6s[0m 207ms/step
+[1m62/94[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m6s[0m 207ms/step
+[1m63/94[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m6s[0m 207ms/step
+[1m64/94[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m6s[0m 207ms/step
+[1m65/94[0m [32m━━━━━━━━━━━━━[0m[37m━━━━━━━[0m [1m6s[0m 207ms/step
+[1m66/94[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m5s[0m 207ms/step
+[1m67/94[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m5s[0m 207ms/step
+[1m68/94[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m5s[0m 207ms/step
+[1m69/94[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m5s[0m 207ms/step
+[1m70/94[0m [32m━━━━━━━━━━━━━━[0m[37m━━━━━━[0m [1m4s[0m 207ms/step
+[1m71/94[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m4s[0m 207ms/step
+[1m72/94[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m4s[0m 207ms/step
+[1m73/94[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m4s[0m 207ms/step
+[1m74/94[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m4s[0m 207ms/step
+[1m75/94[0m [32m━━━━━━━━━━━━━━━[0m[37m━━━━━[0m [1m3s[0m 206ms/step
+[1m76/94[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m3s[0m 206ms/step
+[1m77/94[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m3s[0m 206ms/step
+[1m78/94[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m3s[0m 206ms/step
+[1m79/94[0m [32m━━━━━━━━━━━━━━━━[0m[37m━━━━[0m [1m3s[0m 206ms/step
+[1m80/94[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m2s[0m 206ms/step
+[1m81/94[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m2s[0m 206ms/step
+[1m82/94[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m2s[0m 206ms/step
+[1m83/94[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m2s[0m 206ms/step
+[1m84/94[0m [32m━━━━━━━━━━━━━━━━━[0m[37m━━━[0m [1m2s[0m 205ms/step
+[1m85/94[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m1s[0m 205ms/step
+[1m86/94[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m1s[0m 205ms/step
+[1m87/94[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m1s[0m 205ms/step
+[1m88/94[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m1s[0m 205ms/step
+[1m89/94[0m [32m━━━━━━━━━━━━━━━━━━[0m[37m━━[0m [1m1s[0m 205ms/step
+[1m90/94[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m0s[0m 205ms/step
+[1m91/94[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m0s[0m 205ms/step
+[1m92/94[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m0s[0m 204ms/step
+[1m93/94[0m [32m━━━━━━━━━━━━━━━━━━━[0m[37m━[0m [1m0s[0m 204ms/step
+[1m94/94[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 204ms/step
+[1m94/94[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m19s[0m 204ms/step</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>Y_val <span class="op">=</span> np.argmax(Y_val, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>Y_pred <span class="op">=</span> np.argmax(Y_pred, axis<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>metrics.confusion_matrix(Y_val, Y_pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>array([[521,   9, 457],
+       [  6, 967,   4],
+       [ 68,   0, 968]])</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(metrics.classification_report(Y_val, Y_pred,</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                                    target_names<span class="op">=</span>classes))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              precision    recall  f1-score   support
+
+    lung_aca       0.88      0.53      0.66       987
+      lung_n       0.99      0.99      0.99       977
+    lung_scc       0.68      0.93      0.79      1036
+
+    accuracy                           0.82      3000
+   macro avg       0.85      0.82      0.81      3000
+weighted avg       0.84      0.82      0.81      3000</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
