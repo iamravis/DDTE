@@ -1,95 +1,90 @@
 [
   {
-    "listing": "/dl_tutorials.html",
+    "listing": "/statistics.html",
     "items": [
-      "/posts/dl_tutorials/DL Project 1-  Lung Cancer Detection using Convolutional Neural Network (CNN)/index.html",
-      "/posts/dl_tutorials/ml1/index.html",
-      "/posts/dl_tutorials/CopyOfpost-with-code/index.html",
-      "/posts/dl_tutorials/CopyOfwelcome/index.html"
+      "/posts/statistics/ml1/index.html"
     ]
   },
   {
-    "listing": "/de_tutorials.html",
+    "listing": "/coding.html",
     "items": [
-      "/posts/de_tutorials/ml1/index.html",
-      "/posts/de_tutorials/CopyOfpost-with-code/index.html",
-      "/posts/de_tutorials/CopyOfwelcome/index.html"
-    ]
-  },
-  {
-    "listing": "/ds_tutorials.html",
-    "items": [
-      "/posts/ds_tutorials/ml1/index.html",
-      "/posts/ds_tutorials/CopyOfpost-with-code/index.html",
-      "/posts/ds_tutorials/CopyOfwelcome/index.html"
-    ]
-  },
-  {
-    "listing": "/index.html",
-    "items": [
-      "/posts/de_tutorials/ml1/index.html",
-      "/posts/de_tutorials/CopyOfpost-with-code/index.html",
-      "/posts/ml_projects/ml1/index.html",
-      "/posts/ml_projects/CopyOfpost-with-code/index.html",
-      "/posts/ml_tutorials/ml1/index.html",
-      "/posts/ml_tutorials/CopyOfpost-with-code/index.html",
-      "/posts/de_projects/ml1/index.html",
-      "/posts/de_projects/CopyOfpost-with-code/index.html",
-      "/posts/ds_tutorials/ml1/index.html",
-      "/posts/ds_tutorials/CopyOfpost-with-code/index.html",
-      "/posts/ds_projects/ml1/index.html",
-      "/posts/ds_projects/CopyOfpost-with-code/index.html",
-      "/posts/dl_tutorials/DL Project 1-  Lung Cancer Detection using Convolutional Neural Network (CNN)/index.html",
-      "/posts/dl_tutorials/ml1/index.html",
-      "/posts/dl_tutorials/CopyOfpost-with-code/index.html",
-      "/posts/de_tutorials/CopyOfwelcome/index.html",
-      "/posts/ml_projects/CopyOfwelcome/index.html",
-      "/posts/ml_tutorials/CopyOfwelcome/index.html",
-      "/posts/de_projects/CopyOfwelcome/index.html",
-      "/posts/ds_tutorials/CopyOfwelcome/index.html",
-      "/posts/dl_projects/DLP1 - Lung Cancer Detection using Convolutional Neural Network (CNN) /index.html",
-      "/posts/ds_projects/CopyOfwelcome/index.html",
-      "/posts/dl_tutorials/CopyOfwelcome/index.html"
-    ]
-  },
-  {
-    "listing": "/ds_projects.html",
-    "items": [
-      "/posts/ds_projects/ml1/index.html",
-      "/posts/ds_projects/CopyOfpost-with-code/index.html",
-      "/posts/ds_projects/CopyOfwelcome/index.html"
-    ]
-  },
-  {
-    "listing": "/dl_projects.html",
-    "items": [
-      "/posts/ml_projects/ml1/index.html",
-      "/posts/ml_projects/CopyOfpost-with-code/index.html",
-      "/posts/ml_projects/CopyOfwelcome/index.html"
+      "/posts/coding/DL Project 1-  Lung Cancer Detection using Convolutional Neural Network (CNN)/index.html"
     ]
   },
   {
     "listing": "/ml_projects.html",
     "items": [
+      "/posts/ml_projects/ml1/index.html"
+    ]
+  },
+  {
+    "listing": "/product_sense.html",
+    "items": [
+      "/posts/product_sense/ml1/index.html"
+    ]
+  },
+  {
+    "listing": "/ds_projects.html",
+    "items": [
+      "/posts/ds_projects/ml1/index.html"
+    ]
+  },
+  {
+    "listing": "/sql_and_db_design.html",
+    "items": [
+      "/posts/sql_and_db_design/DL Project 1-  Lung Cancer Detection using Convolutional Neural Network (CNN)/index.html"
+    ]
+  },
+  {
+    "listing": "/dl_projects.html",
+    "items": [
+      "/posts/ml_projects/ml1/index.html"
+    ]
+  },
+  {
+    "listing": "/probability.html",
+    "items": [
+      "/posts/probability/ml1/index.html"
+    ]
+  },
+  {
+    "listing": "/case_studies.html",
+    "items": [
+      "/posts/case_studies/DL Project 1-  Lung Cancer Detection using Convolutional Neural Network (CNN)/index.html",
+      "/posts/case_studies/ml1/index.html",
+      "/posts/case_studies/CopyOfpost-with-code/index.html",
+      "/posts/case_studies/CopyOfwelcome/index.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/statistics/ml1/index.html",
+      "/posts/probability/ml1/index.html",
+      "/posts/machine_learning/ml1/index.html",
       "/posts/ml_projects/ml1/index.html",
-      "/posts/ml_projects/CopyOfpost-with-code/index.html",
-      "/posts/ml_projects/CopyOfwelcome/index.html"
+      "/posts/de_projects/ml1/index.html",
+      "/posts/sql_and_db_design/DL Project 1-  Lung Cancer Detection using Convolutional Neural Network (CNN)/index.html",
+      "/posts/coding/DL Project 1-  Lung Cancer Detection using Convolutional Neural Network (CNN)/index.html",
+      "/posts/product_sense/ml1/index.html",
+      "/posts/dl_projects/DLP1 - Lung Cancer Detection using Convolutional Neural Network (CNN) /index.html",
+      "/posts/ds_projects/ml1/index.html",
+      "/posts/case_studies/DL Project 1-  Lung Cancer Detection using Convolutional Neural Network (CNN)/index.html",
+      "/posts/case_studies/ml1/index.html",
+      "/posts/case_studies/CopyOfpost-with-code/index.html",
+      "/posts/case_studies/CopyOfwelcome/index.html"
     ]
   },
   {
     "listing": "/de_projects.html",
     "items": [
-      "/posts/de_projects/ml1/index.html",
-      "/posts/de_projects/CopyOfpost-with-code/index.html",
-      "/posts/de_projects/CopyOfwelcome/index.html"
+      "/posts/de_projects/ml1/index.html"
     ]
   },
   {
-    "listing": "/ml_tutorials.html",
+    "listing": "/machine_learning.html",
     "items": [
-      "/posts/ml_tutorials/ml1/index.html",
-      "/posts/ml_tutorials/CopyOfpost-with-code/index.html",
-      "/posts/ml_tutorials/CopyOfwelcome/index.html"
+      "/posts/machine_learning/ml1/index.html"
     ]
   }
 ]
