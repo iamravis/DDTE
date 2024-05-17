@@ -7,9 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Ravi Shankar">
-<meta name="dcterms.date" content="2024-05-14">
 
-<title>Data Down To Earth - My First Project</title>
+<title>Data Down To Earth - Properties of Random Variables</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -114,12 +79,69 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     document.body.classList.add('hypothesis-enabled');
   });
 </script>
+<style>
+      main{
+        background-color: #F5F5F5
+      }
+      p{
+        font-family: 'Ebgaramond', sans-serif;
+        color: #4a4a4a;
+        }
+      h2 h3 h4{
+        font-size: 0.7rem;
+        color: #003366
 
+      }
+      .math.display {
+          font-size: 1em;
+          color: #003366;
+          text-align: center;
+          display: block;
+          margin: 20px 0;
+
+        }
+      h1 {
+      font-family: 'Antiquebookcover', sans-serif;
+      font-size: 2.5rem;
+      color: #001e3f;
+      margin-top: 30px;
+  }
+      </style>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../../styles.css">
-<meta property="og:title" content="Data Down To Earth - My First Project">
+<meta property="og:title" content="Data Down To Earth - Properties of Random Variables">
 <meta property="og:description" content="">
-<meta property="og:image" content="ml1.jpg">
+<meta property="og:image" content="stat1.jpg">
 <meta property="og:site_name" content="Data Down To Earth">
 </head>
 
@@ -231,11 +253,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">My First Project</h1>
+      <h1 class="title">Properties of Random Variables</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">news</div>
-                <div class="quarto-category">code</div>
-                <div class="quarto-category">analysis</div>
+                <div class="quarto-category">statistics</div>
               </div>
                   </div>
   </div>
@@ -253,7 +273,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">May 14, 2024</p>
+        <p class="date">Invalid Date</p>
       </div>
     </div>
     
@@ -272,15 +292,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>This is a post with code</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a> <span class="dv">20</span><span class="sc">*</span><span class="dv">24</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 480</code></pre>
-</div>
-</div>
+<section id="expectation-mean" class="level2">
+<h2 class="anchored" data-anchor-id="expectation-mean">Expectation (Mean)</h2>
+<p>The expectation (or mean) of a random variable (X) is a measure of the central tendency of the distribution of (X). For a continuous random variable (X), the expectation is given by the integral of the value of (X) with its probability density function (PDF) (f_X(x)):</p>
+<p><span class="math display">\[
+\mu = E[X] = \int_{-\infty}^{\infty} x f_X(x) dx
+\]</span></p>
+<p><strong>Example</strong>: Consider a continuous random variable (X) representing the height of people in a city. The expectation (E[X]) is the average height of all people in that city.</p>
+</section>
+<section id="variance" class="level2">
+<h2 class="anchored" data-anchor-id="variance">Variance</h2>
+<p>The variance of a random variable (X) is a measure of the dispersion or spread of the distribution of (X) around its mean. It is given by:</p>
+<p><span class="math display">\[
+\text{Var}(X) = E\left[(X - E[X])^2\right] = E[X^2] - (E[X])^2
+\]</span></p>
+<p>The square root of the variance is called the standard deviation, denoted by sigma</p>
+<p><span class="math display">\[
+\sigma = \sqrt{\text{Var}(X)} = \sqrt{E\left[(X - E[X])^2\right]} = \sqrt{E[X^2] - (E[X])^2}
+\]</span></p>
+<p><strong>Example</strong>: Continuing with the height example, the variance tells us how much the heights of people in the city vary around the average height. A higher variance means more variation in heights.</p>
+</section>
+<section id="conditional-expectation" class="level2">
+<h2 class="anchored" data-anchor-id="conditional-expectation">Conditional Expectation</h2>
+<p>The conditional expectation of (X), given that another random variable (Y) equals (y), is the expected value of (X) when (Y = y). It is given by:</p>
+<p><span class="math display">\[
+E[X | Y = y] = \int{-\infty}^{\infty} x f{X|Y}(x|y) , dx
+\]</span></p>
+<p><strong>Example</strong>: If (X) is the height of people and (Y) is their age, (E[X | Y = y]) is the average height of people who are (y) years old.</p>
+</section>
+<section id="covariance" class="level2">
+<h2 class="anchored" data-anchor-id="covariance">Covariance</h2>
+<p>The covariance between two random variables (X) and (Y) is a measure of the linear relationship between them. It is given by:</p>
+<p><span class="math display">\[
+\text{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]E[Y]
+\]</span></p>
+<p><strong>Example</strong>: If (X) is the height of people and (Y) is their weight, the covariance tells us how changes in height are related to changes in weight.</p>
+</section>
+<section id="correlation" class="level2">
+<h2 class="anchored" data-anchor-id="correlation">Correlation</h2>
+<p>The correlation between two random variables (X) and (Y) is the normalization of the covariance by the product of their standard deviations. It is represented by the Greek letter ():</p>
+<p><span class="math display">\[
+\rho(X, Y) = \frac{\text{Cov}(X, Y)}{\sqrt{\text{Var}(X) \text{Var}(Y)}}
+\]</span></p>
+<p><strong>Example</strong>: Continuing with height and weight, the correlation coefficient ((X, Y)) tells us how strongly height and weight are related, ranging from -1 (perfect negative correlation) to 1 (perfect positive correlation).</p>
+</section>
+<section id="example-uniform-distribution" class="level2">
+<h2 class="anchored" data-anchor-id="example-uniform-distribution">Example: Uniform Distribution</h2>
+<p>If (X) follows a uniform distribution on the interval ([a, b]), the PDF (f_X(x)) is:</p>
+<p><span class="math display">\[
+f_X(x) = \frac{1}{b - a}
+\]</span></p>
+<p>The expectation (E[X]) is given by:</p>
+<p><span class="math display">\[
+E[X] = \int_a^b x f_X(x) , dx = \int_a^b \frac{x}{b - a} , dx = \left. \frac{x^2}{2(b - a)} \right|_a^b = \frac{a + b}{2}
+\]</span></p>
+<p><strong>Example</strong>: If (X) represents the time it takes for a bus to arrive, uniformly distributed between 0 and 20 minutes, the expected waiting time (E[X]) is 10 minutes.</p>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

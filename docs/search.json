@@ -4,7 +4,7 @@
     "href": "statistics.html",
     "title": "Statistics",
     "section": "",
-    "text": "My First Project\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Properties of Random Variables\n\n\n\n\n\n\nRavi Shankar\n\n\nInvalid Date\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "coding.html",
@@ -53,7 +53,7 @@
     "href": "sql_and_db_design.html",
     "title": "SQL and DB Design",
     "section": "",
-    "text": "My First Project\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Properties of Random Variables\n\n\n\n\n\n\nRavi Shankar\n\n\nInvalid Date\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/case_studies/CopyOfwelcome/index.html",
@@ -105,11 +105,53 @@
     "text": "This is a post with code\n\n 20*24\n\n[1] 480"
   },
   {
-    "objectID": "posts/statistics/ml1/index.html",
-    "href": "posts/statistics/ml1/index.html",
-    "title": "My First Project",
+    "objectID": "posts/statistics/Properties of Random Variables/index.html",
+    "href": "posts/statistics/Properties of Random Variables/index.html",
+    "title": "Properties of Random Variables",
     "section": "",
-    "text": "This is a post with code\n\n 20*24\n\n[1] 480"
+    "text": "The expectation (or mean) of a random variable (X) is a measure of the central tendency of the distribution of (X). For a continuous random variable (X), the expectation is given by the integral of the value of (X) with its probability density function (PDF) (f_X(x)):\n\\[\n\\mu = E[X] = \\int_{-\\infty}^{\\infty} x f_X(x) dx\n\\]\nExample: Consider a continuous random variable (X) representing the height of people in a city. The expectation (E[X]) is the average height of all people in that city."
+  },
+  {
+    "objectID": "posts/statistics/Properties of Random Variables/index.html#expectation-mean",
+    "href": "posts/statistics/Properties of Random Variables/index.html#expectation-mean",
+    "title": "Properties of Random Variables",
+    "section": "",
+    "text": "The expectation (or mean) of a random variable (X) is a measure of the central tendency of the distribution of (X). For a continuous random variable (X), the expectation is given by the integral of the value of (X) with its probability density function (PDF) (f_X(x)):\n\\[\n\\mu = E[X] = \\int_{-\\infty}^{\\infty} x f_X(x) dx\n\\]\nExample: Consider a continuous random variable (X) representing the height of people in a city. The expectation (E[X]) is the average height of all people in that city."
+  },
+  {
+    "objectID": "posts/statistics/Properties of Random Variables/index.html#variance",
+    "href": "posts/statistics/Properties of Random Variables/index.html#variance",
+    "title": "Properties of Random Variables",
+    "section": "Variance",
+    "text": "Variance\nThe variance of a random variable (X) is a measure of the dispersion or spread of the distribution of (X) around its mean. It is given by:\n\\[\n\\text{Var}(X) = E\\left[(X - E[X])^2\\right] = E[X^2] - (E[X])^2\n\\]\nThe square root of the variance is called the standard deviation, denoted by sigma\n\\[\n\\sigma = \\sqrt{\\text{Var}(X)} = \\sqrt{E\\left[(X - E[X])^2\\right]} = \\sqrt{E[X^2] - (E[X])^2}\n\\]\nExample: Continuing with the height example, the variance tells us how much the heights of people in the city vary around the average height. A higher variance means more variation in heights."
+  },
+  {
+    "objectID": "posts/statistics/Properties of Random Variables/index.html#conditional-expectation",
+    "href": "posts/statistics/Properties of Random Variables/index.html#conditional-expectation",
+    "title": "Properties of Random Variables",
+    "section": "Conditional Expectation",
+    "text": "Conditional Expectation\nThe conditional expectation of (X), given that another random variable (Y) equals (y), is the expected value of (X) when (Y = y). It is given by:\n\\[\nE[X | Y = y] = \\int{-\\infty}^{\\infty} x f{X|Y}(x|y) , dx\n\\]\nExample: If (X) is the height of people and (Y) is their age, (E[X | Y = y]) is the average height of people who are (y) years old."
+  },
+  {
+    "objectID": "posts/statistics/Properties of Random Variables/index.html#covariance",
+    "href": "posts/statistics/Properties of Random Variables/index.html#covariance",
+    "title": "Properties of Random Variables",
+    "section": "Covariance",
+    "text": "Covariance\nThe covariance between two random variables (X) and (Y) is a measure of the linear relationship between them. It is given by:\n\\[\n\\text{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]E[Y]\n\\]\nExample: If (X) is the height of people and (Y) is their weight, the covariance tells us how changes in height are related to changes in weight."
+  },
+  {
+    "objectID": "posts/statistics/Properties of Random Variables/index.html#correlation",
+    "href": "posts/statistics/Properties of Random Variables/index.html#correlation",
+    "title": "Properties of Random Variables",
+    "section": "Correlation",
+    "text": "Correlation\nThe correlation between two random variables (X) and (Y) is the normalization of the covariance by the product of their standard deviations. It is represented by the Greek letter ():\n\\[\n\\rho(X, Y) = \\frac{\\text{Cov}(X, Y)}{\\sqrt{\\text{Var}(X) \\text{Var}(Y)}}\n\\]\nExample: Continuing with height and weight, the correlation coefficient ((X, Y)) tells us how strongly height and weight are related, ranging from -1 (perfect negative correlation) to 1 (perfect positive correlation)."
+  },
+  {
+    "objectID": "posts/statistics/Properties of Random Variables/index.html#example-uniform-distribution",
+    "href": "posts/statistics/Properties of Random Variables/index.html#example-uniform-distribution",
+    "title": "Properties of Random Variables",
+    "section": "Example: Uniform Distribution",
+    "text": "Example: Uniform Distribution\nIf (X) follows a uniform distribution on the interval ([a, b]), the PDF (f_X(x)) is:\n\\[\nf_X(x) = \\frac{1}{b - a}\n\\]\nThe expectation (E[X]) is given by:\n\\[\nE[X] = \\int_a^b x f_X(x) , dx = \\int_a^b \\frac{x}{b - a} , dx = \\left. \\frac{x^2}{2(b - a)} \\right|_a^b = \\frac{a + b}{2}\n\\]\nExample: If (X) represents the time it takes for a bus to arrive, uniformly distributed between 0 and 20 minutes, the expected waiting time (E[X]) is 10 minutes."
   },
   {
     "objectID": "posts/probability/ml1/index.html",
@@ -126,11 +168,18 @@
     "text": "This is a post with code\n\n 20*24\n\n[1] 480"
   },
   {
-    "objectID": "posts/sql_and_db_design/DL Project 1-  Lung Cancer Detection using Convolutional Neural Network (CNN)/index.html",
-    "href": "posts/sql_and_db_design/DL Project 1-  Lung Cancer Detection using Convolutional Neural Network (CNN)/index.html",
-    "title": "My First Project",
+    "objectID": "posts/sql_and_db_design/Untitled/index.html",
+    "href": "posts/sql_and_db_design/Untitled/index.html",
+    "title": "Properties of Random Variables",
     "section": "",
-    "text": "This is a post with code\n\n 20*24\n\n[1] 480"
+    "text": "## Expectation (Mean)\nThe expectation (or mean) of a random variable \\(X\\) is a measure of the central tendency of the distribution of \\(X\\). For a continuous random variable \\(X\\), the expectation is given by the integral of the value of \\(X\\) with its probability density function (PDF) \\(f_X(x)\\):\n\\[\n\\mu = E[X] = \\int_{-\\infty}^{\\infty} x f_X(x) \\, dx\n\\]\n**Example**: Consider a continuous random variable \\(X\\) representing the height of people in a city. The expectation \\(E[X]\\) is the average height of all people in that city.\n## Variance\nThe variance of a random variable \\(X\\) is a measure of the dispersion or spread of the distribution of \\(X\\) around its mean. It is given by:\n\\[\n\\text{Var}(X) = E\\left[(X - E[X])^2\\right] = E[X^2] - (E[X])^2\n\\]\nThe square root of the variance is called the standard deviation, denoted by \\(\\sigma\\):\n\\[\n\\sigma = \\sqrt{\\text{Var}(X)} = \\sqrt{E\\left[(X - E[X])^2\\right]} = \\sqrt{E[X^2] - (E[X])^2}\n\\]\n**Example**: Continuing with the height example, the variance tells us how much the heights of people in the city vary around the average height. A higher variance means more variation in heights.\n## Conditional Expectation\nThe conditional expectation of \\(X\\), given that another random variable \\(Y\\) equals \\(y\\), is the expected value of \\(X\\) when \\(Y = y\\). It is given by:\n\\[\nE[X | Y = y] = \\int_{-\\infty}^{\\infty} x f_{X|Y}(x|y) \\, dx\n\\]\n**Example**: If \\(X\\) is the height of people and \\(Y\\) is their age, \\(E[X | Y = y]\\) is the average height of people who are \\(y\\) years old.\n## Covariance\nThe covariance between two random variables \\(X\\) and \\(Y\\) is a measure of the linear relationship between them. It is given by:\n\\[\n\\text{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]E[Y]\n\\]\n**Example**: If \\(X\\) is the height of people and \\(Y\\) is their weight, the covariance tells us how changes in height are related to changes in weight.\n## Correlation\nThe correlation between two random variables \\(X\\) and \\(Y\\) is the normalization of the covariance by the product of their standard deviations. It is represented by the Greek letter \\(\\rho\\):\n\\[\n\\rho(X, Y) = \\frac{\\text{Cov}(X, Y)}{\\sqrt{\\text{Var}(X) \\text{Var}(Y)}}\n\\]\n**Example**: Continuing with height and weight, the correlation coefficient \\(\\rho(X, Y)\\) tells us how strongly height and weight are related, ranging from -1 (perfect negative correlation) to 1 (perfect positive correlation).\n## Example: Uniform Distribution\nIf \\(X\\) follows a uniform distribution on the interval \\([a, b]\\), the PDF \\(f_X(x)\\) is:\n\\[\nf_X(x) = \\frac{1}{b - a}\n\\]\nThe expectation \\(E[X]\\) is given by:\n\\[\nE[X] = \\int_a^b x f_X(x) \\, dx = \\int_a^b \\frac{x}{b - a} \\, dx = \\left. \\frac{x^2}{2(b - a)} \\right|_a^b = \\frac{a + b}{2}\n\\]\n**Example**: If \\(X\\) represents the time it takes for a bus to arrive, uniformly distributed between 0 and 20 minutes, the expected waiting time \\(E[X]\\) is 10 minutes."
+  },
+  {
+    "objectID": "posts/sql_and_db_design/Untitled/index.html#properties-of-random-variables",
+    "href": "posts/sql_and_db_design/Untitled/index.html#properties-of-random-variables",
+    "title": "Properties of Random Variables",
+    "section": "",
+    "text": "## Expectation (Mean)\nThe expectation (or mean) of a random variable \\(X\\) is a measure of the central tendency of the distribution of \\(X\\). For a continuous random variable \\(X\\), the expectation is given by the integral of the value of \\(X\\) with its probability density function (PDF) \\(f_X(x)\\):\n\\[\n\\mu = E[X] = \\int_{-\\infty}^{\\infty} x f_X(x) \\, dx\n\\]\n**Example**: Consider a continuous random variable \\(X\\) representing the height of people in a city. The expectation \\(E[X]\\) is the average height of all people in that city.\n## Variance\nThe variance of a random variable \\(X\\) is a measure of the dispersion or spread of the distribution of \\(X\\) around its mean. It is given by:\n\\[\n\\text{Var}(X) = E\\left[(X - E[X])^2\\right] = E[X^2] - (E[X])^2\n\\]\nThe square root of the variance is called the standard deviation, denoted by \\(\\sigma\\):\n\\[\n\\sigma = \\sqrt{\\text{Var}(X)} = \\sqrt{E\\left[(X - E[X])^2\\right]} = \\sqrt{E[X^2] - (E[X])^2}\n\\]\n**Example**: Continuing with the height example, the variance tells us how much the heights of people in the city vary around the average height. A higher variance means more variation in heights.\n## Conditional Expectation\nThe conditional expectation of \\(X\\), given that another random variable \\(Y\\) equals \\(y\\), is the expected value of \\(X\\) when \\(Y = y\\). It is given by:\n\\[\nE[X | Y = y] = \\int_{-\\infty}^{\\infty} x f_{X|Y}(x|y) \\, dx\n\\]\n**Example**: If \\(X\\) is the height of people and \\(Y\\) is their age, \\(E[X | Y = y]\\) is the average height of people who are \\(y\\) years old.\n## Covariance\nThe covariance between two random variables \\(X\\) and \\(Y\\) is a measure of the linear relationship between them. It is given by:\n\\[\n\\text{Cov}(X, Y) = E[(X - E[X])(Y - E[Y])] = E[XY] - E[X]E[Y]\n\\]\n**Example**: If \\(X\\) is the height of people and \\(Y\\) is their weight, the covariance tells us how changes in height are related to changes in weight.\n## Correlation\nThe correlation between two random variables \\(X\\) and \\(Y\\) is the normalization of the covariance by the product of their standard deviations. It is represented by the Greek letter \\(\\rho\\):\n\\[\n\\rho(X, Y) = \\frac{\\text{Cov}(X, Y)}{\\sqrt{\\text{Var}(X) \\text{Var}(Y)}}\n\\]\n**Example**: Continuing with height and weight, the correlation coefficient \\(\\rho(X, Y)\\) tells us how strongly height and weight are related, ranging from -1 (perfect negative correlation) to 1 (perfect positive correlation).\n## Example: Uniform Distribution\nIf \\(X\\) follows a uniform distribution on the interval \\([a, b]\\), the PDF \\(f_X(x)\\) is:\n\\[\nf_X(x) = \\frac{1}{b - a}\n\\]\nThe expectation \\(E[X]\\) is given by:\n\\[\nE[X] = \\int_a^b x f_X(x) \\, dx = \\int_a^b \\frac{x}{b - a} \\, dx = \\left. \\frac{x^2}{2(b - a)} \\right|_a^b = \\frac{a + b}{2}\n\\]\n**Example**: If \\(X\\) represents the time it takes for a bus to arrive, uniformly distributed between 0 and 20 minutes, the expected waiting time \\(E[X]\\) is 10 minutes."
   },
   {
     "objectID": "posts/product_sense/ml1/index.html",
@@ -186,7 +235,7 @@
     "href": "index.html",
     "title": "Data Down To Earth",
     "section": "",
-    "text": "Welcome to Data Down To Earth, where complex data concepts are simplified.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDLP1 - Lung Cancer Detection using Convolutional Neural Network (CNN)\n\n\n\ndeep learning\n\n\ncomputer vision\n\n\nhealthcare\n\n\n\n\n\n\n\nRavi Shankar\n\n\nInvalid Date\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nHarlow Malloc\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\nTristan O’Malley\n\n\nMay 11, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Welcome to Data Down To Earth, where complex data concepts are simplified.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nProperties of Random Variables\n\n\n\nstatistics\n\n\n\n\n\n\n\nRavi Shankar\n\n\nInvalid Date\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nProperties of Random Variables\n\n\n\nstatistics\n\n\n\n\n\n\n\nRavi Shankar\n\n\nInvalid Date\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDLP1 - Lung Cancer Detection using Convolutional Neural Network (CNN)\n\n\n\ndeep learning\n\n\ncomputer vision\n\n\nhealthcare\n\n\n\n\n\n\n\nRavi Shankar\n\n\nInvalid Date\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMy First Project\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nRavi Shankar\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPost With Code\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\nHarlow Malloc\n\n\nMay 14, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\nTristan O’Malley\n\n\nMay 11, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "de_projects.html",

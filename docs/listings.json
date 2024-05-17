@@ -2,7 +2,7 @@
   {
     "listing": "/statistics.html",
     "items": [
-      "/posts/statistics/ml1/index.html"
+      "/posts/statistics/Properties of Random Variables/index.html"
     ]
   },
   {
@@ -32,7 +32,7 @@
   {
     "listing": "/sql_and_db_design.html",
     "items": [
-      "/posts/sql_and_db_design/DL Project 1-  Lung Cancer Detection using Convolutional Neural Network (CNN)/index.html"
+      "/posts/sql_and_db_design/Untitled/index.html"
     ]
   },
   {
@@ -59,12 +59,12 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/statistics/ml1/index.html",
+      "/posts/statistics/Properties of Random Variables/index.html",
       "/posts/probability/ml1/index.html",
       "/posts/machine_learning/ml1/index.html",
       "/posts/ml_projects/ml1/index.html",
       "/posts/de_projects/ml1/index.html",
-      "/posts/sql_and_db_design/DL Project 1-  Lung Cancer Detection using Convolutional Neural Network (CNN)/index.html",
+      "/posts/sql_and_db_design/Untitled/index.html",
       "/posts/coding/DL Project 1-  Lung Cancer Detection using Convolutional Neural Network (CNN)/index.html",
       "/posts/product_sense/ml1/index.html",
       "/posts/dl_projects/DLP1 - Lung Cancer Detection using Convolutional Neural Network (CNN) /index.html",
